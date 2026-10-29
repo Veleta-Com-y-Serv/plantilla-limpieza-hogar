@@ -1,0 +1,174 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Web de una sola página: el menú apunta a anclas (#id-de-sección).
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+nombre: Brisa Hogar
+eslogan: Limpieza de casas, cristales y cuidado del hogar en Alcalá de Henares.
+sector: limpieza
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#0f6fc6"
+  acento: "#c6f03c"
+  fondo: "#ffffff"
+  texto: "#0b2742"
+contacto:
+  telefono: "918 02 47 63"
+  email: hola@brisahogar.es
+  direccion: "Calle de Libreros 21, 28801 Alcalá de Henares (Madrid)"
+  horario: "Lunes a viernes, de 8:00 a 20:00. Sábados, de 9:00 a 14:00."
+  whatsapp: "+34 611 48 20 75"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: Planes, url: "/#planes" }
+  - { texto: Cómo funciona, url: "/#proceso" }
+  - { texto: Zonas, url: "/#zonas" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pide presupuesto, url: "/#presupuesto" }
+seo:
+  titulo: Brisa Hogar · Limpieza del hogar en Alcalá de Henares
+  descripcion: "Limpieza de casas, cristales, plancha, jardín y piscina en Alcalá de Henares. Personal de confianza, sin permanencia y presupuesto en el día."
+  tipo: LocalBusiness
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Limpieza del hogar en Alcalá de Henares
+    titulo: Llega a casa y
+    titulo_destacado: que huela a limpio.   # final del titular, con el subrayado de color
+    texto: "Limpiamos tu casa cada semana, a fondo o cuando lo necesites. Siempre la misma persona, con productos incluidos y sin permanencia."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pide tu presupuesto, url: "/#presupuesto" }
+    cta_secundario: { texto: Ver planes, url: "/#planes" }
+    items:      # promesas cortas de la franja de color bajo la portada
+      - { titulo: Sin permanencia }
+      - { titulo: Personal asegurado }
+      - { titulo: Productos incluidos }
+      - { titulo: Siempre la misma persona }
+      - { titulo: Presupuesto en el día }
+
+  servicios:
+    activa: true
+    antetitulo: Servicios
+    titulo: Todo lo que tu casa necesita
+    texto: "Elige un servicio suelto o combínalos en un plan. Llevamos nosotros los productos y el material."
+    items:
+      - { titulo: Limpieza de mantenimiento, texto: "Polvo, suelos, baños y cocina cada semana o cada quince días.", icono: escoba, precio: "desde 16 €/hora" }
+      - { titulo: Limpieza a fondo, texto: "Armarios por dentro, azulejos, juntas, electrodomésticos y rincones.", icono: chispa, precio: "desde 120 €" }
+      - { titulo: Cristales y persianas, texto: "Ventanas por dentro y por fuera, guías, marcos y lamas de persiana.", icono: sol, precio: "desde 45 €" }
+      - { titulo: Fin de obra y mudanza, texto: "Quitamos el polvo de obra y los restos de pintura y dejamos el piso listo para entrar.", icono: herramienta, precio: "Consultar" }
+      - { titulo: Plancha y ropa, texto: "Lavado, planchado y ropa doblada en su sitio. En casa o con recogida.", icono: hoja, precio: "desde 14 €/hora" }
+      - { titulo: Acompañamiento a mayores, texto: "Compañía, paseos, recados y ayuda en casa para que vivan tranquilos.", icono: corazon, precio: "Consultar" }
+      - { titulo: Jardín y terrazas, texto: "Siega, poda de setos, riego y limpieza de terrazas y patios.", icono: montana, precio: "Consultar" }
+      - { titulo: Piscinas, texto: "Puesta a punto en primavera, mantenimiento semanal y cierre en otoño.", icono: gota, precio: "desde 60 €/mes" }
+    galeria:    # franja de fotos a sangre bajo los servicios
+      - /fotos/cocina.jpg
+      - /fotos/bano.jpg
+      - /fotos/cristales.jpg
+      - /fotos/plancha.jpg
+      - /fotos/jardin.jpg
+      - /fotos/piscina.jpg
+
+  cifras:
+    activa: true
+    antetitulo: Brisa Hogar en números
+    titulo: Casas que ya respiran
+    items:
+      - { titulo: "640", texto: hogares atendidos cada mes }
+      - { titulo: "12 años", texto: limpiando en Alcalá }
+      - { titulo: "38", texto: personas en plantilla }
+      - { titulo: "4,9", texto: de valoración media }
+
+  planes:
+    activa: true
+    antetitulo: Planes
+    titulo: Un plan para cada casa
+    texto: "Precios para un piso de hasta 90 m². Sin permanencia: lo cambias o lo paras cuando quieras."
+    nota: "IVA incluido. Para casas más grandes o con terraza, te damos el precio exacto en el presupuesto."
+    planes:
+      - { nombre: Quincenal, precio: "79 €", periodo: al mes, texto: "Para casas pequeñas o con poco uso.", incluye: "Dos visitas de 3 horas al mes; Baños y cocina a fondo; Polvo y suelos; Productos incluidos", destacado: false }
+      - { nombre: Semanal, precio: "149 €", periodo: al mes, texto: "El más pedido: la casa siempre a punto.", incluye: "Cuatro visitas de 3 horas al mes; La misma persona siempre; Cambio de sábanas; Plancha 30 minutos; Productos incluidos", destacado: true }
+      - { nombre: A fondo, precio: "desde 120 €", periodo: una vez, texto: "Para empezar de cero o antes de una visita.", incluye: "Dos personas, 5 horas; Armarios y electrodomésticos por dentro; Cristales por dentro; Juntas y azulejos", destacado: false }
+
+  proceso:
+    activa: true
+    antetitulo: Cómo funciona
+    titulo: Tu casa limpia sin complicarte
+    texto: "Sin papeleo y sin compromiso. Si algo no te convence, lo repasamos gratis."
+    imagen: /fotos/proceso.jpg
+    items:
+      - { titulo: Nos cuentas cómo es tu casa, texto: "Metros, habitaciones y cada cuánto quieres la limpieza. Por teléfono, WhatsApp o el formulario.", icono: mensaje }
+      - { titulo: Te damos un precio cerrado, texto: "En el mismo día. Si quieres, vamos a verla antes sin coste.", icono: euro }
+      - { titulo: Empezamos el día que elijas, texto: "Siempre la misma persona, con sus productos y su material.", icono: calendario }
+      - { titulo: Lo revisamos contigo, texto: "Al mes te llamamos para ajustar lo que haga falta.", icono: check }
+
+  zonas:
+    activa: true
+    antetitulo: Dónde trabajamos
+    titulo: Alcalá y el Corredor del Henares
+    texto: "Vamos a todos los barrios de Alcalá y a los pueblos de alrededor. Si el tuyo no está, pregúntanos."
+    imagen: /fotos/zonas.jpg
+    items:
+      - { titulo: Alcalá de Henares }
+      - { titulo: Torrejón de Ardoz }
+      - { titulo: Meco }
+      - { titulo: Villalbilla }
+      - { titulo: Los Santos de la Humosa }
+      - { titulo: Camarma de Esteruelas }
+      - { titulo: Anchuelo }
+      - { titulo: Torres de la Alameda }
+
+  garantias:
+    activa: true
+    antetitulo: Garantías
+    titulo: Tranquilidad por escrito
+    items:
+      - { titulo: "Si no quedas contento, volvemos", texto: "Repasamos gratis lo que no esté a tu gusto en las 24 horas siguientes.", icono: check }
+      - { titulo: Personal contratado y asegurado, texto: "Todas las personas del equipo tienen contrato y seguro de responsabilidad civil.", icono: escudo }
+      - { titulo: Sustituciones sin esperas, texto: "Si tu persona de confianza está de vacaciones o de baja, te mandamos a otra del equipo.", icono: usuarios }
+      - { titulo: Llaves bajo custodia, texto: "Guardamos tus llaves codificadas, sin nombre ni dirección.", icono: llave }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que dicen en casa
+    testimonios:
+      - { texto: "Llevan tres años viniendo cada martes y siempre la misma persona. Llego del trabajo y la casa está como nueva.", autor: Marta L., servicio: "Plan semanal · El Val" }
+      - { texto: "Hicieron la limpieza de fin de obra del piso en un día. Ni rastro de polvo y los cristales, perfectos.", autor: Jorge y Elena, servicio: "Fin de obra · Espartales" }
+      - { texto: "Acompañan a mi madre dos tardes por semana. Es un alivio saber que está con alguien de confianza.", autor: Ana R., servicio: "Acompañamiento · Casco histórico" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntan antes de empezar
+    texto: "Si tienes otra duda, escríbenos por WhatsApp y te contestamos enseguida."
+    preguntas:
+      - { pregunta: "¿Tengo que poner yo los productos?", respuesta: "No. Llevamos productos y material profesional. Si prefieres que usemos los tuyos, también lo hacemos." }
+      - { pregunta: "¿Viene siempre la misma persona?", respuesta: "Sí. Te asignamos una persona fija y solo cambia si está de vacaciones o de baja; entonces te avisamos y mandamos a otra de confianza." }
+      - { pregunta: "¿Hay permanencia o penalización?", respuesta: "No. Puedes cambiar de plan, pausarlo en verano o darte de baja avisando con una semana de antelación." }
+      - { pregunta: "¿Tengo que estar en casa?", respuesta: "No hace falta. Muchos clientes nos dejan una llave, que guardamos codificada y sin datos de la vivienda." }
+      - { pregunta: "¿Cómo se paga?", respuesta: "Por domiciliación a final de mes o por transferencia. Te mandamos la factura por correo." }
+
+  presupuesto:
+    activa: true
+    antetitulo: Presupuesto gratis
+    titulo: ¿Cuánto costaría tu casa?
+    texto: "Dinos los metros y cada cuánto quieres la limpieza. Te contestamos hoy mismo con un precio cerrado."
+    boton_formulario: Quiero mi presupuesto
+    nota: "Sin compromiso. Respondemos en menos de 4 horas en horario de oficina."
+    frecuencias: "Una sola vez; Cada semana; Cada quince días; Una vez al mes"
+    items:
+      - { titulo: Precio cerrado, texto: "Lo que te decimos es lo que pagas.", icono: euro }
+      - { titulo: Visita sin coste, texto: "Si lo prefieres, vamos a ver la casa antes.", icono: casa }
+      - { titulo: Empezamos esta semana, texto: "Normalmente en tres o cuatro días.", icono: calendario }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Hablamos cuando quieras
+    texto: "Llámanos, escríbenos por WhatsApp o pásate por la oficina del centro."

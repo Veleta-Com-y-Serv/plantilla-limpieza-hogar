@@ -1,0 +1,164 @@
+/* Limpieza y servicios del hogar — estilo fresco: bandas a sangre de azul cielo, blanco, azul pleno, lima y noche;
+   rejillas «de azulejo» con juntas finas de borde a borde, fotos a sangre con una sola esquina muy redonda,
+   subrayado de rotulador lima en los titulares y burbujas decorativas. Tipografía geométrica de sistema. */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: "Century Gothic", Futura, "Avenir Next", "URW Gothic", "Gill Sans", "Segoe UI Variable Display", system-ui, sans-serif;
+  --ancho: 90rem;
+  --pad: 1rem;
+  --radio: .9rem;
+  --esquina: clamp(3.5rem, 11vw, 13rem);
+  /* Derivados de los cuatro colores del cliente */
+  --cielo: color-mix(in srgb, var(--c-primario) 11%, var(--c-fondo));
+  --cielo-fuerte: color-mix(in srgb, var(--c-primario) 22%, var(--c-fondo));
+  --noche: color-mix(in srgb, var(--c-texto) 94%, #000);
+  --sobre-acento: color-mix(in srgb, var(--c-texto) 88%, #000);
+  --linea: color-mix(in srgb, var(--c-texto) 13%, transparent);
+  /* Margen lateral que alinea el contenido de las bandas partidas con el de .contenedor */
+  --lado: calc(max(0px, (100vw - var(--ancho)) / 2) + var(--pad));
+}
+@media (min-width: 768px) { :root { --pad: 2rem; } }
+@media (min-width: 1280px) { :root { --pad: 3rem; } }
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.6; background: var(--c-fondo); }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 700; letter-spacing: -0.035em; line-height: 1.03; }
+}
+
+@layer components {
+  .contenedor { padding-inline: var(--pad); }
+
+  /* ---------- Bandas a todo el ancho ---------- */
+  .banda { position: relative; padding-block: clamp(4rem, 9vw, 8rem); --linea-ante: var(--c-primario); }
+  .banda--clara { background: var(--c-fondo); color: var(--c-texto); }
+  .banda--cielo { background: var(--cielo); color: var(--c-texto); }
+  .banda--azul { background: var(--c-primario); color: #fff; --linea-ante: var(--c-acento); --linea: rgb(255 255 255 / .22); }
+  .banda--noche { background: var(--noche); color: var(--c-fondo); --linea-ante: var(--c-acento); --linea: color-mix(in srgb, var(--c-fondo) 18%, transparent); }
+  .banda--lima { background: var(--c-acento); color: var(--sobre-acento); --linea-ante: var(--sobre-acento); --linea: color-mix(in srgb, var(--sobre-acento) 22%, transparent); }
+  .banda--sin-pie { padding-bottom: 0; }
+  .banda--sin-relleno { padding-block: 0; }
+
+  /* ---------- Titulares ---------- */
+  .antetitulo { display: inline-flex; align-items: center; gap: .75rem; font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .antetitulo::before { content: ""; width: 2.5rem; height: 3px; border-radius: 3px; background: var(--linea-ante, var(--c-primario)); flex: none; }
+  .titulo-seccion { font-size: clamp(2.2rem, 5.4vw, 4.6rem); margin-top: .9rem; }
+  .titular { max-width: 52rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .titular--centro { margin-inline: auto; text-align: center; }
+  .titular-texto { margin-top: 1.1rem; font-size: 1.15rem; opacity: .82; max-width: 40rem; }
+  /* Cabecera de sección partida: título a la izquierda, texto a la derecha */
+  .cabeza { display: grid; gap: 1.25rem 4rem; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+  @media (min-width: 900px) { .cabeza { grid-template-columns: 1.25fr 1fr; align-items: end; } }
+  .cabeza .titular { margin-bottom: 0; }
+  .cabeza-texto { font-size: 1.15rem; opacity: .82; max-width: 36rem; }
+  .subrayado { background: linear-gradient(transparent 60%, var(--c-acento) 60%, var(--c-acento) 92%, transparent 92%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-inline: .06em; }
+  .banda--lima .subrayado { background: linear-gradient(transparent 60%, var(--c-fondo) 60%, var(--c-fondo) 92%, transparent 92%); }
+
+  /* ---------- Botones píldora ---------- */
+  .btn { border-radius: 999px; background: var(--c-acento); color: var(--sobre-acento); font-weight: 700; min-height: 3.25rem; padding-inline: 1.75rem; }
+  .btn:hover { filter: brightness(1.06) saturate(1.08); transform: translateY(-1px); }
+  .btn-sec { border-radius: 999px; border: 2px solid currentColor; min-height: 3.25rem; padding-inline: 1.6rem; font-weight: 700; }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+  .btn--azul { background: var(--c-primario); color: #fff; }
+  .btn--noche { background: var(--noche); color: var(--c-fondo); }
+
+  /* ---------- Burbujas decorativas ---------- */
+  .burbuja { position: absolute; border-radius: 999px; pointer-events: none; }
+  .burbuja--aro { border: 2px solid currentColor; opacity: .35; }
+  .burbuja--llena { background: currentColor; opacity: .12; }
+  /* En móvil las burbujas de aro no pasan por encima de los textos */
+  @media (max-width: 767px) { .burbuja--aro { display: none; } .portada-foto .burbuja--aro { display: block; } }
+
+  /* ---------- Icono en círculo ---------- */
+  .pastilla-icono { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: var(--cielo-fuerte); color: var(--c-primario); flex: none; }
+  .banda--azul .pastilla-icono, .banda--noche .pastilla-icono { background: var(--c-acento); color: var(--sobre-acento); }
+  .banda--lima .pastilla-icono { background: var(--noche); color: var(--c-acento); }
+
+  /* ---------- Rejilla «de azulejo»: juntas finas de borde a borde ---------- */
+  .azulejos { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--linea); }
+  @media (min-width: 640px) { .azulejos { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .azulejos { grid-template-columns: repeat(4, 1fr); } }
+  .azulejos > * { box-shadow: 1px 0 0 var(--linea), 0 1px 0 var(--linea); padding: clamp(1.75rem, 3vw, 2.75rem) var(--pad); transition: background-color .2s ease; }
+  @media (min-width: 640px) { .azulejos > * { padding-inline: clamp(1.75rem, 2.6vw, 2.75rem); } }
+  .azulejo:hover { background: var(--cielo); }
+  .azulejo h3 { font-size: 1.4rem; margin-top: 1.5rem; }
+  .azulejo p { margin-top: .6rem; opacity: .78; }
+  .precio-chapa { display: inline-flex; margin-top: 1.25rem; padding: .3rem .85rem; border-radius: 999px; background: var(--c-acento); color: var(--sobre-acento); font-weight: 700; font-size: .9rem; }
+
+  /* ---------- Franja de fotos a sangre ---------- */
+  .franja { display: grid; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 640px) { .franja { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1100px) { .franja--6 { grid-template-columns: repeat(6, 1fr); } .franja--4 { grid-template-columns: repeat(4, 1fr); } .franja--5 { grid-template-columns: repeat(5, 1fr); } }
+  .franja-celda { overflow: hidden; aspect-ratio: 3 / 4; background: var(--cielo-fuerte); }
+  .franja-celda img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .franja-celda:hover img { transform: scale(1.05); }
+
+  /* ---------- Bandas partidas 50/50 con la foto a sangre ---------- */
+  .partida { display: grid; }
+  @media (min-width: 768px) { .partida { grid-template-columns: 1fr 1fr; } }
+  .partida-foto { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--cielo-fuerte); }
+  @media (min-width: 768px) { .partida-foto { aspect-ratio: auto; min-height: 100%; } }
+  .partida-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .partida-texto { padding: clamp(3.5rem, 8vw, 7rem) var(--pad); }
+  @media (min-width: 768px) {
+    .partida-texto--izq { padding-left: var(--lado); padding-right: clamp(2rem, 5vw, 6rem); }
+    .partida-texto--der { padding-right: var(--lado); padding-left: clamp(2rem, 5vw, 6rem); }
+  }
+  .esquina-ai { border-top-left-radius: var(--esquina); }
+  .esquina-ad { border-top-right-radius: var(--esquina); }
+  .esquina-bi { border-bottom-left-radius: var(--esquina); }
+
+  /* ---------- Cabecera: siempre sólida, a todo el ancho ---------- */
+  .cabecera--fresca { position: sticky; top: 0; background: color-mix(in srgb, var(--c-fondo) 94%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linea); }
+  .cabecera--fresca .cabecera-fila { min-height: 4.5rem; max-width: var(--ancho); }
+  .cabecera--fresca .marca-inicial { position: relative; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; background: var(--c-primario); color: #fff; font-family: var(--fuente-titulos); font-weight: 700; font-size: 1.15rem; flex: none; }
+  .cabecera--fresca .marca-inicial::after { content: ""; position: absolute; right: -3px; top: -3px; width: .8rem; height: .8rem; border-radius: 999px; background: var(--c-acento); border: 2px solid var(--c-fondo); }
+  .cabecera--fresca .marca-nombre { font-family: var(--fuente-titulos); font-weight: 700; letter-spacing: -0.02em; font-size: 1.25rem; }
+  .cabecera--fresca .cabecera-nav { gap: clamp(1rem, 1.8vw, 2rem); margin-right: .5rem; }
+  .cabecera--fresca .cabecera-nav a { font-size: .95rem; font-weight: 600; opacity: .8; padding-block: .5rem; border-bottom: 2px solid transparent; }
+  .cabecera--fresca .cabecera-nav a:hover { opacity: 1; border-bottom-color: var(--c-acento); }
+  .cabecera--fresca .cabecera-cta { min-height: 2.75rem; padding-inline: 1.3rem; }
+  .cabecera--fresca .menu-movil summary { min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; background: var(--cielo); }
+  .menu-movil-panel { padding: 1rem var(--pad) 1.5rem; border-bottom: 1px solid var(--linea); }
+  .menu-movil-panel a { min-height: 2.75rem; display: flex; align-items: center; font-weight: 600; }
+
+  /* ---------- Pie: noche, con filo lima ---------- */
+  .pie--fresco { background: var(--noche); color: var(--c-fondo); border-top: 6px solid var(--c-acento); padding-top: clamp(3.5rem, 7vw, 6rem); }
+  @media (min-width: 1000px) { .pie--fresco .pie-rejilla { grid-template-columns: 2fr 1.3fr 1fr; } }
+  .pie--fresco .pie-nombre { font-family: var(--fuente-titulos); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.05; }
+  .pie--fresco .pie-eslogan { max-width: 40ch; }
+  .pie--fresco .pie-titulo { color: var(--c-acento); opacity: 1; font-weight: 700; }
+  .pie--fresco .pie-lista a, .pie--fresco .pie-lista li { opacity: .88; }
+  .pie--fresco .pie-lista a { display: inline-block; padding-block: .2rem; }
+  .pie--fresco .pie-redes a { border: 1.5px solid color-mix(in srgb, var(--c-fondo) 30%, transparent); border-radius: 999px; padding: .6rem; }
+  .pie--fresco .pie-redes a:hover { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); }
+  .pie--fresco .pie-noexpertise a { color: var(--c-acento); }
+
+  /* ---------- Formularios ---------- */
+  .campo input, .campo textarea, .campo select { width: 100%; font: inherit; color: inherit; min-height: 3rem; padding: .7rem 1rem; border-radius: .8rem; border: 1.5px solid var(--linea); background: color-mix(in srgb, var(--c-primario) 5%, var(--c-fondo)); }
+  .campo input:focus, .campo textarea:focus, .campo select:focus { outline: 2px solid var(--c-primario); outline-offset: 1px; }
+  .campo-doble { display: grid; gap: 1rem; }
+  @media (min-width: 560px) { .campo-doble { grid-template-columns: 1fr 1fr; } }
+  .formulario .btn { justify-self: stretch; }
+  @media (min-width: 560px) { .formulario .btn { justify-self: start; } }
+  .panel-formulario { background: var(--c-fondo); color: var(--c-texto); border-radius: 2rem; padding: clamp(1.5rem, 3.5vw, 3rem); box-shadow: 0 30px 60px -30px rgb(0 0 0 / .45); --linea: color-mix(in srgb, var(--c-texto) 16%, transparent); }
+
+  /* ---------- Acordeón de preguntas ---------- */
+  .faq { border-bottom: 1px solid var(--linea); }
+  .faq:first-child { border-top: 1px solid var(--linea); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding-block: 1.5rem; min-height: 2.75rem; font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -0.02em; line-height: 1.2; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-signo { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--c-primario); color: #fff; font-size: 1.5rem; line-height: 1; flex: none; transition: transform .2s ease, background-color .2s ease; }
+  .faq[open] .faq-signo { transform: rotate(45deg); background: var(--c-acento); color: var(--sobre-acento); }
+  .faq-respuesta { padding-bottom: 1.75rem; max-width: 46rem; opacity: .85; font-size: 1.075rem; }
+
+  /* ---------- Textos largos ---------- */
+  .texto-largo h2 { font-family: var(--fuente-titulos); font-size: 1.5rem; letter-spacing: -0.02em; }
+  .texto-largo h2:first-child { margin-top: 0; }
+}
+
+/* Franja de promesas que corre (se para con «reducir movimiento», ver comun.css) */
+@keyframes correr { to { transform: translateX(-50%); } }

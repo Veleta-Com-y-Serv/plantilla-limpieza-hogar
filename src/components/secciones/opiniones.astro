@@ -1,0 +1,64 @@
+---
+// Opiniones: la primera, como cita enorme a la izquierda con comillas gigantes en azul; las demás, en columna a
+// la derecha separadas por juntas. Campos: `testimonios[]` (texto, autor, servicio). Sin opiniones no se pinta.
+import { seccion } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const opiniones = s ? s.testimonios.filter((t) => t && String(t.texto ?? '').trim()) : [];
+const [primera, ...resto] = opiniones;
+---
+
+{
+  s && primera && (
+    <section id={Astro.props.id} class="banda banda--clara overflow-hidden">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        <div class:list={['opiniones', { 'opiniones--sola': resto.length === 0 }]}>
+          <figure class="opinion-grande">
+            <span class="comillas" aria-hidden="true">“</span>
+            <blockquote>{primera.texto}</blockquote>
+            {(primera.autor || primera.servicio) && (
+              <figcaption>
+                {primera.autor && <strong>{primera.autor}</strong>}
+                {primera.servicio && <span>{primera.servicio}</span>}
+              </figcaption>
+            )}
+          </figure>
+          {resto.length > 0 && (
+            <div class="opiniones-resto">
+              {resto.map((t) => (
+                <figure>
+                  <blockquote>«{t.texto}»</blockquote>
+                  {(t.autor || t.servicio) && (
+                    <figcaption>
+                      {t.autor && <strong>{t.autor}</strong>}
+                      {t.servicio && <span>{t.servicio}</span>}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .opiniones { display: grid; gap: 3rem; }
+  @media (min-width: 900px) { .opiniones { grid-template-columns: 1.4fr 1fr; gap: clamp(3rem, 6vw, 7rem); align-items: start; } .opiniones--sola { grid-template-columns: 1fr; } }
+  .opinion-grande { position: relative; background: var(--cielo); border-radius: 0 var(--esquina) 0 0; padding: clamp(4rem, 7vw, 6rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3.5rem); margin-inline: calc(var(--pad) * -1); }
+  @media (min-width: 900px) { .opinion-grande { margin-inline: 0; } }
+  .comillas { position: absolute; top: -1.5rem; left: clamp(1rem, 3vw, 3rem); font-family: Georgia, serif; font-size: clamp(9rem, 16vw, 14rem); line-height: 1; color: var(--c-primario); }
+  .opinion-grande blockquote { position: relative; font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.8rem); line-height: 1.15; letter-spacing: -0.03em; }
+  figcaption { display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline; margin-top: 1.5rem; }
+  figcaption strong { font-size: 1.05rem; }
+  figcaption span { font-size: .9rem; opacity: .7; }
+  .opinion-grande figcaption strong::before { content: ""; display: inline-block; width: 2rem; height: 3px; margin-right: .6rem; vertical-align: middle; background: var(--c-acento); border-radius: 3px; }
+  .opiniones-resto { display: grid; }
+  .opiniones-resto figure { padding-block: 2rem; border-top: 1px solid var(--linea); }
+  .opiniones-resto figure:first-child { padding-top: 0; border-top: 0; }
+  .opiniones-resto blockquote { font-size: 1.2rem; line-height: 1.5; }
+</style>

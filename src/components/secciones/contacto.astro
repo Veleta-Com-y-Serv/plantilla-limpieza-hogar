@@ -1,0 +1,70 @@
+---
+// Contacto: titular partido y, debajo, una rejilla «de azulejo» de borde a borde con teléfono (en grande),
+// WhatsApp, correo, dirección y horario. Si la web no tiene un apartado de presupuesto activo, añade el
+// formulario de contacto. Todo sale de site.yaml → contacto; lo que falta no se pinta.
+import { seccion, site, tel, whatsapp, mapa, hayDisenyo } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const conFormulario = !hayDisenyo('presupuesto');
+const datos = [
+  c.telefono && { clase: 'dato--grande', icono: 'telefono', etiqueta: 'Teléfono', valor: c.telefono, url: tel(c.telefono), fuera: false },
+  c.whatsapp && { clase: '', icono: 'whatsapp', etiqueta: 'WhatsApp', valor: c.whatsapp, url: whatsapp(c.whatsapp), fuera: true },
+  c.email && { clase: 'dato--correo', icono: 'correo', etiqueta: 'Correo', valor: c.email, url: `mailto:${c.email}`, fuera: false },
+  c.direccion && { clase: '', icono: 'mapa', etiqueta: 'Dónde estamos', valor: c.direccion, url: mapa(c.direccion), fuera: true },
+  c.horario && { clase: '', icono: 'reloj', etiqueta: 'Horario', valor: c.horario, url: '', fuera: false },
+].filter(Boolean) as { clase: string; icono: string; etiqueta: string; valor: string; url: string; fuera: boolean }[];
+const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || datos.length || conFormulario);
+---
+
+{
+  s && hay && (
+    <section id={Astro.props.id} class:list={['banda banda--clara', { 'banda--sin-pie': !conFormulario && datos.length > 0 }]}>
+      <div class="contenedor cabeza">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+        {s.texto && <p class="cabeza-texto">{s.texto}</p>}
+      </div>
+      {datos.length > 0 && (
+        <ul class="azulejos datos">
+          {datos.map((d) => (
+            <li class:list={['azulejo dato', d.clase]}>
+              <span class="pastilla-icono"><Icono nombre={d.icono} tam={24} /></span>
+              <p class="dato-etiqueta">{d.etiqueta}</p>
+              {d.url ? (
+                <a class="dato-valor" href={d.url} rel={d.fuera ? 'noopener' : undefined} target={d.fuera ? '_blank' : undefined}>{d.valor}</a>
+              ) : (
+                <p class="dato-valor">{d.valor}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {conFormulario && (
+        <div class="contenedor contacto-formulario">
+          <div class="panel-formulario contacto-panel">
+            <FormularioContacto prefijo={`c-${Astro.props.id}`} />
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}
+
+<style>
+  @media (min-width: 1100px) {
+    .datos { grid-template-columns: 1.5fr 1fr 1fr; }
+    .datos .dato--grande { grid-row: span 2; display: flex; flex-direction: column; justify-content: flex-end; }
+  }
+  .dato-etiqueta { margin-top: 1.25rem; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .65; }
+  .dato-valor { display: block; margin-top: .35rem; font-size: 1.15rem; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+  a.dato-valor:hover { text-decoration: underline; text-decoration-color: var(--c-acento); text-decoration-thickness: 3px; }
+  .dato--grande { background: var(--c-primario); color: #fff; }
+  .dato--grande:hover { background: var(--c-primario); }
+  .dato--grande .pastilla-icono { background: var(--c-acento); color: var(--sobre-acento); }
+  .dato--grande .dato-valor { font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(1.9rem, 3.2vw, 2.8rem); letter-spacing: -0.03em; line-height: 1.05; }
+  .contacto-formulario { margin-top: 3rem; }
+  .contacto-panel { max-width: 48rem; background: var(--cielo); box-shadow: none; }
+</style>

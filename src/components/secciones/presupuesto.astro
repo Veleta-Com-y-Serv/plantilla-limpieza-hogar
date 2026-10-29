@@ -1,0 +1,58 @@
+---
+// Presupuesto: banda azul pleno a todo el ancho. A la izquierda, titular, lo que se lleva quien lo pide (`items`
+// con icono en burbuja lima) y la `nota`; a la derecha, el formulario con metros cuadrados y frecuencia en un
+// panel claro. Campos: `items[]` (titulo, texto, icono), `frecuencias` (cadena con «;»), `boton_formulario`, `nota`.
+import { seccion, trocear, tiposDeServicio } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((x) => x && String(x.titulo ?? '').trim()) : [];
+const boton = String(s?.boton_formulario ?? '').trim() || 'Pedir presupuesto';
+const nota = String(s?.nota ?? '').trim();
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda banda--azul overflow-hidden">
+      <span class="burbuja burbuja--aro" style="width:30rem;height:30rem;right:-10rem;top:-12rem" aria-hidden="true" />
+      <div class="contenedor relative presupuesto">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {items.length > 0 && (
+            <ul class="presupuesto-items">
+              {items.map((it) => (
+                <li>
+                  <span class="pastilla-icono"><Icono nombre={it.icono} tam={24} /></span>
+                  <div>
+                    <p class="font-bold text-lg">{it.titulo}</p>
+                    {it.texto && <p class="opacity-85">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {nota && <p class="presupuesto-nota">{nota}</p>}
+        </div>
+        <div class="panel-formulario">
+          <FormularioContacto
+            modelo="presupuesto"
+            prefijo={`p-${Astro.props.id}`}
+            boton={boton}
+            servicios={tiposDeServicio()}
+            frecuencias={trocear(s.frecuencias)}
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .presupuesto { display: grid; gap: 3rem; }
+  @media (min-width: 960px) { .presupuesto { grid-template-columns: 1fr 1.1fr; gap: clamp(3rem, 6vw, 7rem); align-items: center; } }
+  .presupuesto-items { display: grid; gap: 1.5rem; }
+  .presupuesto-items li { display: flex; gap: 1rem; align-items: flex-start; }
+  .presupuesto-nota { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--linea); font-size: .95rem; opacity: .9; }
+</style>

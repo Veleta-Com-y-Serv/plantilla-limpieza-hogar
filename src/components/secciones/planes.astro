@@ -1,0 +1,93 @@
+---
+// Planes en banda azul cielo: columnas pegadas separadas por juntas, sin tarjetas; el plan `destacado` va en
+// bloque noche con botón lima. Campos: `planes[]` (nombre, precio, periodo, texto, incluye con «;», destacado),
+// `nota` (letra pequeña) y `boton` (texto del botón de cada plan; si falta, «Pedir este plan»).
+// El botón va al presupuesto si hay un apartado de presupuesto activo; si no, al de contacto.
+import { seccion, trocear, hayDisenyo } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const planes = s ? s.planes.filter((p) => p && String(p.nombre ?? '').trim()) : [];
+const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || planes.length);
+const destino = hayDisenyo('presupuesto') ? '/#presupuesto' : '/#contacto';
+const boton = String(s?.boton ?? '').trim() || 'Pedir este plan';
+const nota = String(s?.nota ?? '').trim();
+---
+
+{
+  s && hay && (
+    <section id={Astro.props.id} class="banda banda--cielo overflow-hidden">
+      <div class="contenedor relative">
+        <div class="cabeza">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+          {s.texto && <p class="cabeza-texto">{s.texto}</p>}
+        </div>
+        {planes.length > 0 && (
+          <ul class:list={['planes', `planes--${Math.min(planes.length, 4)}`]}>
+            {planes.map((p) => {
+              const incluye = trocear(p.incluye);
+              return (
+                <li class:list={['plan', { 'plan--destacado': p.destacado === true }]}>
+                  <h3 class="plan-nombre">{p.nombre}</h3>
+                  {p.precio && (
+                    <p class:list={["plan-precio", { "plan-precio--largo": String(p.precio).length > 8 }]}>
+                      <span>{p.precio}</span>
+                      {p.periodo && <small>{p.periodo}</small>}
+                    </p>
+                  )}
+                  {p.texto && <p class="plan-texto">{p.texto}</p>}
+                  {incluye.length > 0 && (
+                    <ul class="plan-incluye">
+                      {incluye.map((x) => (
+                        <li>
+                          <Icono nombre="check" tam={20} class="shrink-0" />
+                          <span>{x}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <a class:list={[p.destacado === true ? 'btn' : 'btn btn--azul', 'plan-boton']} href={destino}>{boton}</a>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {nota && <p class="planes-nota">{nota}</p>}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .planes { display: grid; gap: 1rem; align-items: stretch; }
+  @media (min-width: 900px) {
+    .planes { gap: 0; }
+    .planes--2 { grid-template-columns: repeat(2, 1fr); }
+    .planes--3 { grid-template-columns: repeat(3, 1fr); }
+    .planes--4 { grid-template-columns: repeat(4, 1fr); }
+  }
+  .plan { display: flex; flex-direction: column; padding: 2rem 0; border-top: 2px solid var(--linea); }
+  @media (min-width: 900px) {
+    .plan { padding: 2.5rem clamp(1.5rem, 2.8vw, 3rem); border-top: 0; border-left: 1px solid var(--linea); }
+    .plan:first-child { border-left: 0; padding-left: 0; }
+    .plan--destacado, .plan--destacado:first-child { padding-left: clamp(1.5rem, 2.8vw, 3rem); }
+    .plan--destacado + .plan { border-left: 0; }
+  }
+  .plan--destacado { background: var(--noche); color: var(--c-fondo); border-radius: 2rem; border: 0; padding: 2rem 1.5rem; box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--c-texto) 60%, transparent); }
+  @media (min-width: 900px) { .plan--destacado { padding-block: 3.25rem; margin-block: -1.5rem; } }
+  .plan-nombre { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--fuente-texto); font-size: .85rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .plan-nombre::before { content: ""; width: .75rem; height: .75rem; border-radius: 999px; background: var(--c-primario); }
+  .plan--destacado .plan-nombre::before { background: var(--c-acento); }
+  .plan-precio { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .6rem; margin-top: 1rem; }
+  .plan-precio span { font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(2.6rem, 4.6vw, 4.2rem); letter-spacing: -0.05em; line-height: 1; }
+  .plan-precio--largo span { font-size: clamp(2rem, 3.2vw, 3rem); }
+  .plan-precio small { font-size: 1rem; opacity: .75; }
+  .plan-texto { margin-top: .75rem; opacity: .85; }
+  .plan-incluye { display: grid; gap: .6rem; margin-top: 1.5rem; margin-bottom: 2rem; }
+  .plan-incluye li { display: flex; gap: .6rem; align-items: flex-start; }
+  .plan-incluye :global(svg) { margin-top: .15rem; color: var(--c-primario); }
+  .plan--destacado .plan-incluye :global(svg) { color: var(--c-acento); }
+  .plan-boton { margin-top: auto; align-self: flex-start; }
+  .planes-nota { margin-top: 2.5rem; font-size: .9rem; opacity: .75; max-width: 48rem; }
+</style>

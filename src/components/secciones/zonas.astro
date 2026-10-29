@@ -1,0 +1,49 @@
+---
+// Zonas: banda partida 50/50 en color noche, con los pueblos o barrios como píldoras grandes a la izquierda y la
+// foto a sangre a la derecha (esquina superior izquierda muy redonda). Sin foto, banda noche con las píldoras a lo
+// ancho. Campos: `imagen`, `items[]` (titulo = la zona).
+import { seccion, conTitulo } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const zonas = s ? conTitulo(s.items) : [];
+const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || s.imagen || zonas.length);
+---
+
+{
+  s && hay && (
+    <section id={Astro.props.id} class:list={['banda banda--noche overflow-hidden', { 'banda--sin-relleno': !!s.imagen }]}>
+      <div class:list={[s.imagen ? 'partida' : 'contenedor']}>
+        <div class:list={[{ 'partida-texto partida-texto--izq': !!s.imagen }, 'relative']}>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {zonas.length > 0 && (
+            <ul class="zonas">
+              {zonas.map((z) => (
+                <li>
+                  <Icono nombre="mapa" tam={18} />
+                  {z.titulo}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        {s.imagen && (
+          <div class="partida-foto esquina-ai">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1100} />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .zonas { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .zonas li { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; padding: .5rem 1.1rem; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--c-fondo) 28%, transparent); font-weight: 600; font-size: 1.05rem; }
+  .zonas li :global(svg) { color: var(--c-acento); flex: none; }
+  .zonas li:first-child { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); }
+  .zonas li:first-child :global(svg) { color: var(--sobre-acento); }
+</style>

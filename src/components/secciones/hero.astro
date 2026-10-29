@@ -1,0 +1,104 @@
+---
+// Portada partida 50/50 a sangre: a la izquierda, banda azul cielo con el titular enorme (el final,
+// `titulo_destacado`, con subrayado lima de rotulador), texto y dos botones; a la derecha, la foto hasta el
+// borde de la ventana con una sola esquina muy redonda. Debajo, franja lima con las promesas (`items`, solo
+// `titulo`) que corre de lado a lado. Sin foto, la mitad derecha es un bloque azul con burbujas.
+import { seccion, conTitulo } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const destacado = String(s?.titulo_destacado ?? '').trim();
+const promesas = s ? conTitulo(s.items) : [];
+// La franja se repite (un número par de veces: corre la mitad y vuelve a empezar sin corte visible).
+const vueltas = promesas.length ? Math.ceil(Math.max(2, Math.ceil(10 / promesas.length)) / 2) * 2 : 0;
+---
+
+{
+  s && (
+    <section id={id} class="portada">
+      <div class="portada-rejilla">
+        <div class="portada-texto">
+          <span class="burbuja burbuja--aro portada-b1" aria-hidden="true" />
+          <span class="burbuja burbuja--llena portada-b2" aria-hidden="true" />
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          <h1 class="portada-titulo">
+            {s.titulo}
+            {destacado && (
+              <>
+                {' '}
+                <span class="subrayado">{destacado}</span>
+              </>
+            )}
+          </h1>
+          {s.texto && <p class="portada-parrafo">{s.texto}</p>}
+          {(s.cta?.url || s.cta_secundario?.url) && (
+            <div class="portada-botones">
+              {s.cta?.url && (
+                <a class="btn btn--azul" href={s.cta.url}>
+                  {s.cta.texto}
+                  <Icono nombre="flecha" tam={20} />
+                </a>
+              )}
+              {s.cta_secundario?.url && <a class="btn-sec" href={s.cta_secundario.url}>{s.cta_secundario.texto}</a>}
+            </div>
+          )}
+        </div>
+        <div class:list={['portada-foto esquina-bi', { 'portada-foto--vacia': !s.imagen }]}>
+          {s.imagen ? (
+            <Imagen src={s.imagen} alt={altHero()} ancho={1400} alto={1200} prioridad={primera} />
+          ) : (
+            <>
+              <span class="burbuja burbuja--aro" style="width:46%;aspect-ratio:1;right:12%;top:14%" aria-hidden="true" />
+              <span class="burbuja burbuja--llena" style="width:26%;aspect-ratio:1;left:14%;bottom:16%" aria-hidden="true" />
+              <span class="burbuja burbuja--llena" style="width:9%;aspect-ratio:1;left:46%;top:30%" aria-hidden="true" />
+            </>
+          )}
+        </div>
+      </div>
+      {
+        promesas.length > 0 && (
+          <div class="promesas">
+            <ul class="promesas-pista">
+              {Array.from({ length: vueltas }).flatMap((_, v) =>
+                promesas.map((p) => (
+                  <li aria-hidden={v > 0 ? 'true' : undefined}>
+                    <Icono nombre="chispa" tam={22} />
+                    {p.titulo}
+                  </li>
+                )),
+              )}
+            </ul>
+          </div>
+        )
+      }
+    </section>
+  )
+}
+
+<style>
+  .portada { position: relative; }
+  .portada-rejilla { display: grid; }
+  @media (min-width: 768px) { .portada-rejilla { grid-template-columns: 1.05fr 1fr; min-height: calc(88svh - 4.5rem); } }
+  .portada-texto { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; background: var(--cielo); color: var(--c-texto); padding: 3.5rem var(--pad) 3rem; --linea-ante: var(--c-primario); }
+  @media (min-width: 768px) { .portada-texto { padding: 5rem clamp(2rem, 4vw, 5rem) 5rem var(--lado); } }
+  .portada-titulo { position: relative; font-size: clamp(2.6rem, 7.2vw, 6.6rem); line-height: .98; letter-spacing: -0.045em; margin-top: 1.25rem; }
+  .portada-parrafo { position: relative; margin-top: 1.5rem; max-width: 34rem; font-size: clamp(1.1rem, 1.6vw, 1.3rem); opacity: .85; }
+  .portada-botones { position: relative; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.25rem; }
+  .portada-b1 { width: 22rem; height: 22rem; right: -9rem; top: -8rem; color: var(--c-primario); }
+  .portada-b2 { width: 9rem; height: 9rem; left: -3rem; bottom: -3rem; color: var(--c-primario); }
+  .portada-foto { position: relative; overflow: hidden; width: 100%; aspect-ratio: 4 / 3; background: var(--c-primario); color: #fff; }
+  @media (min-width: 768px) { .portada-foto { aspect-ratio: auto; min-height: 100%; } }
+  .portada-foto :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .promesas { overflow: hidden; background: var(--c-acento); color: var(--sobre-acento); border-block: 1px solid color-mix(in srgb, var(--sobre-acento) 15%, transparent); }
+  .promesas-pista { display: flex; width: max-content; animation: correr 38s linear infinite; }
+  .promesas:hover .promesas-pista { animation-play-state: paused; }
+  .promesas-pista li { display: inline-flex; align-items: center; gap: .75rem; padding: 1.1rem 1.75rem; white-space: nowrap; font-family: var(--fuente-titulos); font-weight: 700; font-size: clamp(1.05rem, 1.8vw, 1.4rem); letter-spacing: -0.01em; }
+  @media (prefers-reduced-motion: reduce) {
+    .promesas-pista { width: auto; flex-wrap: wrap; justify-content: center; padding-block: .5rem; }
+    .promesas-pista li { padding: .45rem 1rem; font-size: 1rem; }
+    .promesas-pista li[aria-hidden] { display: none; }
+  }
+</style>

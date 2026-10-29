@@ -1,0 +1,48 @@
+---
+// Servicios en rejilla «de azulejo»: celdas con juntas finas que van de borde a borde de la ventana (1, 2 o 4
+// columnas), cada una con su icono en burbuja, título, texto y precio opcional en chapa lima. Debajo, si hay
+// `galeria`, una franja de fotos a sangre sin márgenes. Campos: `items[]` (titulo, texto, icono, precio), `galeria[]`.
+import { seccion, conTitulo } from '../../data/site';
+import { altGaleria } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? conTitulo(s.items) : [];
+const fotos = s ? s.galeria.filter(Boolean).slice(0, 12) : [];
+const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || items.length || fotos.length);
+const columnas = fotos.length >= 6 ? 6 : fotos.length === 5 ? 5 : 4;
+---
+
+{
+  s && hay && (
+    <section id={Astro.props.id} class:list={['banda banda--clara', { 'banda--sin-pie': items.length > 0 || fotos.length > 0 }]}>
+      <div class="contenedor cabeza">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+        {s.texto && <p class="cabeza-texto">{s.texto}</p>}
+      </div>
+      {items.length > 0 && (
+        <ul class="azulejos">
+          {items.map((it) => (
+            <li class="azulejo">
+              <span class="pastilla-icono"><Icono nombre={it.icono} tam={26} /></span>
+              <h3>{it.titulo}</h3>
+              {it.texto && <p>{it.texto}</p>}
+              {it.precio && <span class="precio-chapa">{it.precio}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+      {fotos.length > 0 && (
+        <div class={`franja franja--${columnas}`}>
+          {fotos.map((f, i) => (
+            <div class="franja-celda">
+              <Imagen src={f} alt={altGaleria(i)} ancho={600} alto={800} />
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}

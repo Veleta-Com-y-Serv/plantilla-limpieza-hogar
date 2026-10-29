@@ -1,0 +1,20 @@
+---
+// Página 404 con el diseño de la plantilla: banda azul cielo a todo el ancho, «404» enorme con burbujas.
+import Base from '../layouts/Base.astro';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda banda--cielo overflow-hidden">
+    <span class="burbuja burbuja--aro" style="width:28rem;height:28rem;right:-8rem;top:-10rem;color:var(--c-primario)" aria-hidden="true" />
+    <span class="burbuja burbuja--llena" style="width:12rem;height:12rem;left:-4rem;bottom:-4rem;color:var(--c-primario)" aria-hidden="true" />
+    <div class="contenedor relative grid min-h-[60svh] content-center gap-10 md:grid-cols-2 md:items-center">
+      <p class="font-display text-[clamp(6rem,22vw,16rem)] font-bold leading-none tracking-[-0.06em] text-primario" aria-hidden="true">404</p>
+      <div>
+        <p class="antetitulo">Error 404</p>
+        <h1 class="titulo-seccion">Aquí no hay nada que limpiar</h1>
+        <p class="mt-5 max-w-xl text-lg opacity-85">Puede que el enlace esté mal o que la página se haya movido.</p>
+        <p class="mt-8"><a class="btn btn--azul" href="/">Volver al inicio</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
