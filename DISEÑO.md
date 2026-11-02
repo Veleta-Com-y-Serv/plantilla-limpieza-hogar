@@ -47,3 +47,8 @@ quien (persona o agente) la rediseñe después.
   azulejos y las garantías a 4 columnas, la franja de fotos a 6 y los planes en fila.
 - **Qué no hacer**: volver al hero centrado de `una-pagina`, poner los servicios o los planes en tarjetas blancas
   sueltas, meter cifras o precios fijos en los componentes, o usar el lima como color de texto sobre blanco.
+
+## Páginas propias (fichas y zonas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista; en las zonas, entrada, texto de la zona, servicios, trabajos del lugar, opiniones y contacto.

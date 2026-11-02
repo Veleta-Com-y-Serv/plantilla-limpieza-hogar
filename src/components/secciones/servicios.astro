@@ -1,9 +1,11 @@
 ---
 // Servicios en rejilla «de azulejo»: celdas con juntas finas que van de borde a borde de la ventana (1, 2 o 4
 // columnas), cada una con su icono en burbuja, título, texto y precio opcional en chapa lima. Debajo, si hay
-// `galeria`, una franja de fotos a sangre sin márgenes. Campos: `items[]` (titulo, texto, icono, precio), `galeria[]`.
+// `galeria`, una franja de fotos a sangre sin márgenes. Campos: `items[]` (titulo, texto, icono, precio, detalle,
+// imagenes), `galeria[]`. Los servicios con `detalle` tienen página propia (/servicios/<slug>/) y su celda es un enlace.
 import { seccion, conTitulo } from '../../data/site';
 import { altGaleria } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Titular from '../ui/Titular.astro';
 import Icono from '../ui/Icono.astro';
 import Imagen from '../ui/Imagen.astro';
@@ -27,9 +29,10 @@ const columnas = fotos.length >= 6 ? 6 : fotos.length === 5 ? 5 : 4;
           {items.map((it) => (
             <li class="azulejo">
               <span class="pastilla-icono"><Icono nombre={it.icono} tam={26} /></span>
-              <h3>{it.titulo}</h3>
+              <h3>{enlaceDe(it) ? <a href={enlaceDe(it)} class="azulejo-enlace">{it.titulo}</a> : it.titulo}</h3>
               {it.texto && <p>{it.texto}</p>}
               {it.precio && <span class="precio-chapa">{it.precio}</span>}
+              {enlaceDe(it) && <span class="azulejo-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>}
             </li>
           ))}
         </ul>

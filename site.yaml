@@ -58,12 +58,61 @@ secciones:
     titulo: Todo lo que tu casa necesita
     texto: "Elige un servicio suelto o combínalos en un plan. Llevamos nosotros los productos y el material."
     items:
-      - { titulo: Limpieza de mantenimiento, texto: "Polvo, suelos, baños y cocina cada semana o cada quince días.", icono: escoba, precio: "desde 16 €/hora" }
-      - { titulo: Limpieza a fondo, texto: "Armarios por dentro, azulejos, juntas, electrodomésticos y rincones.", icono: chispa, precio: "desde 120 €" }
-      - { titulo: Cristales y persianas, texto: "Ventanas por dentro y por fuera, guías, marcos y lamas de persiana.", icono: sol, precio: "desde 45 €" }
-      - { titulo: Fin de obra y mudanza, texto: "Quitamos el polvo de obra y los restos de pintura y dejamos el piso listo para entrar.", icono: herramienta, precio: "Consultar" }
+      - titulo: Limpieza de mantenimiento
+        texto: "Polvo, suelos, baños y cocina cada semana o cada quince días."
+        icono: escoba
+        precio: "desde 16 €/hora"
+        imagenes: "/fotos/cocina.jpg; /fotos/bano.jpg"
+        detalle: |
+          La limpieza de mantenimiento es el servicio de siempre: una persona de confianza que viene los días que acordáis y deja la casa como si no hubiera pasado la semana. Se pasa el polvo, se friegan los suelos, se limpian a conciencia los baños y la cocina, se hacen las camas y se vacían las papeleras.
+
+          Antes de empezar visitamos la casa o hablamos contigo para saber qué es importante en la tuya: la habitación que más se usa, las superficies delicadas, los productos que prefieres. Todo queda apuntado en una hoja que la persona del equipo tiene siempre a mano.
+
+          Va bien para familias con poco tiempo, personas que trabajan fuera o mayores que ya no pueden con las tareas pesadas. Llevamos nosotros productos y material, no hay permanencia y, si un día no te encaja, lo cambiamos sin penalización. Siempre viene la misma persona, y si falta, te avisamos de quién la sustituye.
+      - titulo: Limpieza a fondo
+        texto: "Armarios por dentro, azulejos, juntas, electrodomésticos y rincones."
+        icono: chispa
+        precio: "desde 120 €"
+        imagenes: "/fotos/bano.jpg; /fotos/cocina.jpg"
+        detalle: |
+          La limpieza a fondo es la que llega a los sitios que el día a día no alcanza. Trabajan dos personas, que limpian por dentro armarios y cajones, frotan azulejos y juntas, desengrasan campana, horno y encimera y dejan los electrodomésticos como recién estrenados.
+
+          Es el servicio ideal para empezar de cero antes de contratar un plan de mantenimiento, para preparar la casa antes de una visita importante o para la puesta a punto de cada cambio de estación. También la piden quienes se instalan en una vivienda que estuvo cerrada o alquilada.
+
+          Antes de empezar te preguntamos por las zonas que más te preocupan y por cualquier superficie que requiera cuidado especial, como mármol, madera o acero. Usamos productos adecuados para cada material y no dejamos olores fuertes. Al terminar repasamos contigo el resultado, y si algo no está a tu gusto, volvemos a repasarlo gratis.
+      - titulo: Cristales y persianas
+        texto: "Ventanas por dentro y por fuera, guías, marcos y lamas de persiana."
+        icono: sol
+        precio: "desde 45 €"
+        imagenes: "/fotos/cristales.jpg"
+        detalle: |
+          Unos cristales limpios cambian la luz de toda la casa. Limpiamos ventanas y puertas de balcón por dentro y por fuera, con atención a los marcos, las guías de las correderas, los alféizares y las lamas de las persianas, que acumulan más polvo del que parece.
+
+          Trabajamos con material profesional que no deja marcas ni velos y con el equipo de seguridad necesario para los ventanales altos o de difícil acceso. Si tu casa tiene terraza cerrada, galería o mamparas de baño, también las incluimos.
+
+          Es un servicio que muchos clientes piden en primavera y tras el verano, o después de una obra, cuando el polvo se queda pegado al cristal. Puedes contratarlo suelto o añadirlo a tu plan de mantenimiento con la frecuencia que prefieras. No hace falta que estés en casa: nos organizamos contigo para entrar y salir cuando te venga mejor.
+      - titulo: Fin de obra y mudanza
+        texto: "Quitamos el polvo de obra y los restos de pintura y dejamos el piso listo para entrar."
+        icono: herramienta
+        precio: "Consultar"
+        imagenes: "/fotos/bano.jpg"
+        detalle: |
+          Después de una reforma, la casa queda cubierta de un polvo fino que se cuela en todas partes. Nuestro servicio de fin de obra elimina ese polvo, quita los restos de pintura, silicona y cemento de suelos, cristales, sanitarios y azulejos y deja el piso listo para colocar los muebles.
+
+          También lo contratan quienes están a punto de mudarse y quieren entregar la vivienda impecable, o quienes llegan a una casa nueva y prefieren estrenarla limpia. Trabajamos con aspiración profesional y con productos que no dañan los acabados recientes.
+
+          Como cada obra es distinta, preparamos el presupuesto después de ver el piso o de revisar fotos y medidas contigo. Te decimos cuánta gente irá, cuánto tiempo necesitamos y qué incluye exactamente el servicio, por escrito y con precio cerrado. Si hace falta, coordinamos la fecha con el último gremio para empezar justo cuando termine.
       - { titulo: Plancha y ropa, texto: "Lavado, planchado y ropa doblada en su sitio. En casa o con recogida.", icono: hoja, precio: "desde 14 €/hora" }
-      - { titulo: Acompañamiento a mayores, texto: "Compañía, paseos, recados y ayuda en casa para que vivan tranquilos.", icono: corazon, precio: "Consultar" }
+      - titulo: Acompañamiento a mayores
+        texto: "Compañía, paseos, recados y ayuda en casa para que vivan tranquilos."
+        icono: corazon
+        precio: "Consultar"
+        detalle: |
+          Acompañar a una persona mayor es mucho más que estar presente: es darle compañía, seguridad y pequeñas ayudas para que siga viviendo en su casa con tranquilidad. Nuestro equipo charla, pasea con ella, la acompaña al médico o a la compra, prepara una merienda y echa una mano con los recados.
+
+          Antes de empezar conocemos a la persona y a su familia para entender sus costumbres, sus horarios y lo que necesita. Después presentamos a la persona del equipo que mejor encaja y se queda como referencia fija, para que se forme una relación de confianza.
+
+          El servicio se organiza por tardes, mañanas o los días que mejor vengan a la familia, y se puede combinar con la limpieza del hogar. La familia recibe un aviso si ocurre cualquier cosa fuera de lo normal. Todo el personal tiene contrato y seguro, y guardamos las llaves codificadas y bajo custodia.
       - { titulo: Jardín y terrazas, texto: "Siega, poda de setos, riego y limpieza de terrazas y patios.", icono: montana, precio: "Consultar" }
       - { titulo: Piscinas, texto: "Puesta a punto en primavera, mantenimiento semanal y cierre en otoño.", icono: gota, precio: "desde 60 €/mes" }
     galeria:    # franja de fotos a sangre bajo los servicios
@@ -113,13 +162,20 @@ secciones:
     titulo: Alcalá y el Corredor del Henares
     texto: "Vamos a todos los barrios de Alcalá y a los pueblos de alrededor. Si el tuyo no está, pregúntanos."
     imagen: /fotos/zonas.jpg
+    titulo_pagina: "Limpieza del hogar en {zona}"
+    texto_pagina: "{negocio} limpia y cuida casas en {zona}, con la misma persona de confianza y sin permanencia."
     items:
-      - { titulo: Alcalá de Henares }
-      - { titulo: Torrejón de Ardoz }
-      - { titulo: Meco }
-      - { titulo: Villalbilla }
+      - titulo: Alcalá de Henares
+        texto: "Alcalá es nuestra casa: aquí está la oficina y desde aquí salen todos los equipos. Trabajamos en el casco histórico, en los barrios más nuevos y en las urbanizaciones de las afueras, tanto en pisos como en chalés y adosados. Los planes semanales y quincenales son los más pedidos, pero también hacemos limpiezas a fondo antes de una mudanza, cristales de ventanales y puesta a punto de terrazas y patios. Al conocer bien la ciudad, organizamos las rutas para llegar siempre puntuales y podemos empezar muy pronto, normalmente a los pocos días de pedir presupuesto."
+      - titulo: Torrejón de Ardoz
+        texto: "En Torrejón de Ardoz atendemos a familias, parejas jóvenes y personas mayores que viven en pisos y en viviendas de las urbanizaciones. Es una de las zonas donde más limpiezas de fin de obra y de mudanza hacemos, porque hay muchas casas que se reforman o cambian de manos. También ofrecemos mantenimiento semanal, cristales y plancha con recogida. Desde Torrejón llegamos sin problema a Meco y a Alcalá, así que si tienes familia en alguno de esos pueblos podemos organizar el servicio de las dos casas con la misma persona de confianza y una única factura mensual."
+      - titulo: Meco
+        texto: "Meco es un pueblo tranquilo donde muchas casas tienen jardín, terraza o piscina, y por eso allí hacemos algo más que limpieza interior. Además del mantenimiento semanal, nos piden siega, poda de setos, limpieza de patios y puesta a punto de la piscina en primavera. Los equipos que trabajan en Meco suelen compartir ruta con Villalbilla y Camarma de Esteruelas, de modo que podemos ofrecer horarios fijos y continuidad. Si vives en una vivienda de fin de semana o en una casa que usas solo en verano, te la preparamos antes de que llegues y la dejamos cerrada cuando te vayas."
+      - titulo: Villalbilla
+        texto: "En Villalbilla trabajamos con muchas familias que viven en casas unifamiliares y adosados. Lo más habitual es un plan semanal o quincenal, con la misma persona de confianza, que conoce la casa y la deja siempre a punto. También hacemos limpiezas a fondo antes de las fiestas o de la llegada de familiares, cristales de grandes ventanales y limpieza de terrazas y porches. Villalbilla queda muy cerca de Alcalá y de Los Santos de la Humosa, así que podemos organizar las visitas con flexibilidad y reaccionar rápido cuando necesitas un repaso o una sustitución en el último momento."
       - { titulo: Los Santos de la Humosa }
-      - { titulo: Camarma de Esteruelas }
+      - titulo: Camarma de Esteruelas
+        texto: "Camarma de Esteruelas es una de las zonas en las que más ha crecido nuestra clientela en los últimos tiempos. Atendemos viviendas nuevas, adosados y pisos de reciente construcción, donde solemos empezar con una limpieza de fin de obra o una limpieza a fondo antes de la mudanza, y después seguimos con el mantenimiento semanal. También cuidamos terrazas, jardines pequeños y zonas comunes de las casas. Como el pueblo está junto a Meco, Anchuelo y Alcalá, nuestros equipos se reparten bien por la comarca y podemos darte día y hora fijos, sin retrasos ni cambios de persona."
       - { titulo: Anchuelo }
       - { titulo: Torres de la Alameda }
 

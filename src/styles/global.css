@@ -86,6 +86,12 @@
   .azulejo:hover { background: var(--cielo); }
   .azulejo h3 { font-size: 1.4rem; margin-top: 1.5rem; }
   .azulejo p { margin-top: .6rem; opacity: .78; }
+  .azulejo { position: relative; }
+  .azulejo-enlace { text-decoration: none; color: inherit; }
+  .azulejo-enlace::after { content: ""; position: absolute; inset: 0; }
+  .azulejo-enlace:focus-visible { outline: none; }
+  .azulejo:has(.azulejo-enlace:focus-visible) { outline: 2px solid var(--c-primario); outline-offset: -4px; }
+  .azulejo-ver { display: inline-flex; align-items: center; gap: .3rem; margin-top: 1rem; font-weight: 700; color: var(--c-primario); }
   .precio-chapa { display: inline-flex; margin-top: 1.25rem; padding: .3rem .85rem; border-radius: 999px; background: var(--c-acento); color: var(--sobre-acento); font-weight: 700; font-size: .9rem; }
 
   /* ---------- Franja de fotos a sangre ---------- */

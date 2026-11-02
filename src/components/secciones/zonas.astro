@@ -1,9 +1,11 @@
 ---
 // Zonas: banda partida 50/50 en color noche, con los pueblos o barrios como píldoras grandes a la izquierda y la
 // foto a sangre a la derecha (esquina superior izquierda muy redonda). Sin foto, banda noche con las píldoras a lo
-// ancho. Campos: `imagen`, `items[]` (titulo = la zona).
+// ancho. Campos: `imagen`, `items[]` (titulo = la zona, texto). Las zonas con `texto` tienen página (/zonas/<slug>/)
+// y su píldora es un enlace; las demás siguen como texto.
 import { seccion, conTitulo } from '../../data/site';
 import { altSeccion } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
 import Icono from '../ui/Icono.astro';
@@ -24,7 +26,7 @@ const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || s.imagen || zonas.l
               {zonas.map((z) => (
                 <li>
                   <Icono nombre="mapa" tam={18} />
-                  {z.titulo}
+                  {enlaceDe(z) ? <a href={enlaceDe(z)} class="zona-enlace">{z.titulo}</a> : z.titulo}
                 </li>
               ))}
             </ul>
@@ -44,6 +46,12 @@ const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || s.imagen || zonas.l
   .zonas { display: flex; flex-wrap: wrap; gap: .6rem; }
   .zonas li { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; padding: .5rem 1.1rem; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--c-fondo) 28%, transparent); font-weight: 600; font-size: 1.05rem; }
   .zonas li :global(svg) { color: var(--c-acento); flex: none; }
+  .zonas li:has(.zona-enlace) { position: relative; }
+  .zona-enlace { color: inherit; text-decoration: none; }
+  .zona-enlace::after { content: ""; position: absolute; inset: 0; border-radius: 999px; }
+  .zona-enlace:focus-visible { outline: none; }
+  .zonas li:has(.zona-enlace:focus-visible) { outline: 2px solid var(--c-acento); outline-offset: 2px; }
+  .zonas li:has(.zona-enlace):hover { border-color: var(--c-acento); }
   .zonas li:first-child { background: var(--c-acento); color: var(--sobre-acento); border-color: var(--c-acento); }
   .zonas li:first-child :global(svg) { color: var(--sobre-acento); }
 </style>
