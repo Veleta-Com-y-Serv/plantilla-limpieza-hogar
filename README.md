@@ -8,6 +8,7 @@ blanco, azul pleno, lima y noche; rejillas «de azulejo» de borde a borde y fot
 - Secciones: hero, servicios, cifras, planes, proceso, zonas, garantias, opiniones, preguntas, presupuesto, contacto (y `texto` para apartados nuevos).
 - Ejemplo: «Brisa Hogar», empresa ficticia de Alcalá de Henares (teléfonos ficticios).
 - SEO de base incluido (`src/lib/seo.ts`): canónica, og:image, JSON-LD del negocio y de las preguntas frecuentes, `robots.txt`, `sitemap.xml` y `llms.txt`; `noindex` si `seo.indexable: false`.
+- Varias páginas (opcional, `paginas:` en la raíz de `site.yaml`): Inicio + una página por entrada (`{ ruta, titulo, secciones: "a; b" }`, hasta 6) con el menú hecho solo; reparto recomendado en `template.yaml → paginas`. Sin la clave, una sola página larga.
 - Contenido editable en `site.yaml`; metadatos y guion del asistente en `template.yaml`; fotos en `fotos.json`; reglas para el agente en `CLAUDE.md`; brief de diseño en `DISEÑO.md`.
 
 ## Campos propios

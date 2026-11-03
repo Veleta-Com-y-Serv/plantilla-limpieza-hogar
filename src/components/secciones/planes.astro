@@ -6,11 +6,12 @@
 import { seccion, trocear, hayDisenyo } from '../../data/site';
 import Titular from '../ui/Titular.astro';
 import Icono from '../ui/Icono.astro';
+import { enlace } from '../../lib/multipagina';
 interface Props { id: string }
 const s = seccion(Astro.props.id);
 const planes = s ? s.planes.filter((p) => p && String(p.nombre ?? '').trim()) : [];
 const hay = !!s && !!(s.titulo || s.antetitulo || s.texto || planes.length);
-const destino = hayDisenyo('presupuesto') ? '/#presupuesto' : '/#contacto';
+const destino = hayDisenyo('presupuesto') ? enlace('/#presupuesto') : enlace('/#contacto');
 const boton = String(s?.boton ?? '').trim() || 'Pedir este plan';
 const nota = String(s?.nota ?? '').trim();
 ---

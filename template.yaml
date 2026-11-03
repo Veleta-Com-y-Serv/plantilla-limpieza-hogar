@@ -22,7 +22,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: fresco
 plan_minimo: gratis
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-limpieza-hogar.noexpertise.com
 activa: true
@@ -33,6 +33,13 @@ fichas:
   - { lista: servicios, campo: items, ruta: servicios, nombre: Servicio, tipo: Service }
 zonas:
   ruta: zonas
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, cifras).
+paginas:
+  - { ruta: servicios, titulo: Servicios, secciones: "servicios; planes; zonas" }
+  - { ruta: como-trabajamos, titulo: Cómo trabajamos, secciones: "proceso; garantias; opiniones" }
+  - { ruta: presupuesto, titulo: Presupuesto, secciones: "preguntas; presupuesto; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
 # tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
